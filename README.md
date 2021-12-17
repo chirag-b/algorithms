@@ -6,8 +6,8 @@
 - Solve coding challenges
 
 ## Data Structures
-- [ ] Static Arrays
-- [ ] Dynamic Arrays
+- [x] Static Arrays
+- [x] Dynamic Arrays
 - [ ] Singly Linked Lists
 - [ ] Doubly Linked Lists
 - [ ] Stacks
