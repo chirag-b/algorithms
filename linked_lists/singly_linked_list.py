@@ -34,17 +34,20 @@ class SinglyLinkedList:
         
 
     def get_size(self):
-        # Returns the size of the list
+        # Returns the size of the list 
+        # Running Time: O(1)
         return self.size
 
 
     def is_empty(self):
         # Returns True if list is empty else returns False
+        # Running Time: O(1)
         return self.size == 0
 
 
     def add_node(self, value):
         # Adds a node to the end of the list
+        # Running Time: O(1)
         if self.is_empty():
             logger.info('Adding the first node')
             node = Node(value)
@@ -61,6 +64,7 @@ class SinglyLinkedList:
 
     def add_node_at(self, position, value):
         # Adds a node at 'position'
+        # Running Time: O(n)
         if not (position <= self.size):
             logger.info('Invalid position specified!!') 
         else:
@@ -83,6 +87,7 @@ class SinglyLinkedList:
 
     def remove_node(self, value):
         # Removes a node with 'value'
+        # Running Time: O(n)
         if self.is_empty():
             logger.info('Nothing to remove, the list is empty.')
         else:
@@ -99,6 +104,7 @@ class SinglyLinkedList:
 
     def get_index_of(self, value):
         # Returns the index of the value in the list
+        # Running Time: O(n)
         if self.is_empty():
             logger.info('The list is empty!!')
         else:
@@ -114,6 +120,7 @@ class SinglyLinkedList:
 
     def remove_node_at(self, position):
         # Removes node at 'position'
+        # Running Time: O(n)
         if not (position <= self.size):
             logger.info('Invalid position specified!!') 
         else:
@@ -133,6 +140,7 @@ class SinglyLinkedList:
 
     def list_all_nodes(self):
         # Lists all nodes currently in the Singly Linked List
+        # Running Time: O(n)
         if self.is_empty():
             logger.info(f'The list is empty!!')
         else:
@@ -147,6 +155,7 @@ class SinglyLinkedList:
 
     def get_value_at(self, position):
         # Returns the value of a node at 'position'
+        # Running Time: O(n)
         if not (position <= self.size):
             logger.info('Invalid position specified!!') 
         else:
@@ -162,6 +171,7 @@ class SinglyLinkedList:
 
     def add_first(self, value):
         # Adds a new node to the head of the list
+        # Running Time: O(1)
         if self.is_empty():
             logger.info('List empty adding node at head.')
             node = Node(value)
@@ -176,6 +186,7 @@ class SinglyLinkedList:
 
     def remove_first(self):
         # Removes the node at the head
+        # Running Time: O(1)
         if self.is_empty():
             logger.info('The list is empty!!')
         else:
@@ -188,6 +199,7 @@ class SinglyLinkedList:
 
     def remove_last(self):
         # Removes the last node in the list
+        # Running Time: O(n)
         if self.is_empty():
             logger.info('The list is empty!!')
         else:
@@ -200,10 +212,12 @@ class SinglyLinkedList:
 
 
     def get_head_value(self):
+        # Running Time: O(1)
         return self.head.value
 
 
     def get_tail_value(self):
+        # Running Time: O(1)
         return self.tail.value
 
 
