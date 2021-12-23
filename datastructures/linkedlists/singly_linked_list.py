@@ -1,13 +1,12 @@
 # -----------------------------------------------
 # Author: Chirag Balakrishna
-# Description: Python implementation of a doubly 
+# Description: Python implementation of a singly 
 # linked list
 # -----------------------------------------------
 
 # -----------------------------------------------
 # Properties: 
-#   - Nodes with reference to next node and the 
-#     previous node
+#   - Nodes with reference to next node
 #   - Head and Tail pointers point to first node
 #     and last node in the list respectively
 #   - The last node has a NULL reference
@@ -21,22 +20,21 @@ logger = logging.getLogger()
 
 
 class Node:
-    def __init__(self, value, next=None, prev=None):
+    def __init__(self, value, next=None):
         self.value = value # This can be of any type int, string, float...
         self.next = next  # In other languages this will be of type 'Node'.
-        self.prev = prev  # In other languages this will be of type 'Node'.
 
 
-class DoublyLinkedList:
+class SinglyLinkedList:
     def __init__(self):
-        # Returns a Doubly Linked List instance
+        # Returns a Singly Linked List instance
         self.head = None 
         self.tail = None
         self.size = 0
         
 
     def get_size(self):
-        # Returns the size of the list
+        # Returns the size of the list 
         # Running Time: O(1)
         return self.size
 
@@ -51,7 +49,7 @@ class DoublyLinkedList:
         # Adds a node to the end of the list
         # Running Time: O(1)
         if self.is_empty():
-            logger.info('List is empty, adding the first node')
+            logger.info('Adding the first node')
             node = Node(value)
             self.head = node
             self.tail = node
@@ -60,7 +58,6 @@ class DoublyLinkedList:
             logger.info(f'Adding node {value} to the end')
             node = Node(value)
             self.tail.next = node
-            node.prev = self.tail
             self.tail = node
             self.size += 1
 
@@ -83,8 +80,7 @@ class DoublyLinkedList:
                 trav = self.head
                 for _ in range(position-2):
                     trav = trav.next
-                node = Node(value, trav.next, trav)
-                trav.next.prev = node
+                node = Node(value, trav.next)
                 trav.next = node
                 self.size += 1
 
@@ -96,12 +92,13 @@ class DoublyLinkedList:
             logger.info('Nothing to remove, the list is empty.')
         else:
             trav = self.head
+            trav2 = self.head.next
             position = self.get_index_of(value)
-            for _ in range(position-1):
+            for _ in range(position-2):
                 trav = trav.next
-            trav.prev.next = trav.next
-            trav.next.prev = trav.prev
-            del trav 
+                trav2 = trav2.next
+            trav.next = trav2.next
+            trav2.next = None
             self.size -= 1
 
 
@@ -132,16 +129,17 @@ class DoublyLinkedList:
             else:
                 assert(position <= self.size)
                 trav = self.head
-                for _ in range(position-1):
+                trav2 = self.head.next
+                for _ in range(position-2):
                     trav = trav.next
-                trav.prev.next = trav.next
-                trav.next.prev = trav.prev
-                del trav 
+                    trav2 = trav2.next
+                trav.next = trav2.next
+                trav2.next = None
                 self.size -= 1
 
 
     def list_all_nodes(self):
-        # Lists all nodes currently in the Doubly Linked List
+        # Lists all nodes currently in the Singly Linked List
         # Running Time: O(n)
         if self.is_empty():
             logger.info(f'The list is empty!!')
@@ -150,7 +148,10 @@ class DoublyLinkedList:
             all_nodes = ""
             for _ in range(self.get_size()):
                 all_nodes += str(trav.value)
-                all_nodes += " <-> "
+                if trav.next is not None:
+                    all_nodes += " -> "  
+                else:
+                    all_nodes += " -> EOL"
                 trav = trav.next
             logger.info(all_nodes)
 
@@ -181,8 +182,7 @@ class DoublyLinkedList:
             self.tail = node
             self.size += 1
         else:
-            node = Node(value, self.head, None)
-            self.head.prev = node
+            node = Node(value, self.head)
             self.head = node
             self.size += 1
 
@@ -195,82 +195,86 @@ class DoublyLinkedList:
         else:
             trav = self.head
             self.head = self.head.next
+            trav.next = None
             self.size -= 1
             del trav    
 
 
     def remove_last(self):
         # Removes the last node in the list
-        # Running Time: O(1)
+        # Running Time: O(n)
         if self.is_empty():
             logger.info('The list is empty!!')
         else:
-            trav = self.tail
-            self.tail = self.tail.prev
-            self.tail.next = None
-            del trav
+            trav = self.head
+            for _ in range(self.size - 2):
+                trav = trav.next
+            trav.next = None
+            self.tail = trav
             self.size -= 1
 
 
     def get_head_value(self):
         # Running Time: O(1)
-        return self.head.value
+        if self.is_empty():
+            logger.info('The list is empty')
+        else:
+            return self.head.value
 
 
     def get_tail_value(self):
         # Running Time: O(1)
-        return self.tail.value
+        if self.is_empty():
+            logger.info('The list is empty')
+        else:
+            return self.tail.value
 
 
 if __name__ == '__main__':
     # import pdb; pdb.set_trace()
-    newDLL = DoublyLinkedList()
-    newDLL.add_node(5)
-    newDLL.add_node(6)
-    newDLL.add_node(7)
-    newDLL.add_node(8)
-    newDLL.add_node(9)
-    newDLL.add_node(10)
-    newDLL.add_node(11)
-    logger.info(newDLL.get_size())
-    newDLL.list_all_nodes()
+    newSLL = SinglyLinkedList()
+    # newSLL.add_node(5)
+    # newSLL.add_node(6)
+    # newSLL.add_node(7)
+    # newSLL.add_node(8)
+    # newSLL.add_node(9)
+    # newSLL.add_node(10)
+    # newSLL.add_node(11)
+    # logger.info(newSLL.get_size())
+    # newSLL.list_all_nodes()
 
-    newDLL.add_node_at(6, 66)
-    logger.info(newDLL.get_size())
-    newDLL.list_all_nodes()
+    # newSLL.add_node_at(6, 66)
+    # logger.info(newSLL.get_size())
+    # newSLL.list_all_nodes()
 
-    newDLL.add_node_at(2, 555)
-    logger.info(newDLL.get_size())
-    newDLL.list_all_nodes()
+    # newSLL.add_node_at(2, 555)
+    # logger.info(newSLL.get_size())
+    # newSLL.list_all_nodes()
 
-    newDLL.add_node_at(1, 4)
-    logger.info(newDLL.get_size())
-    newDLL.list_all_nodes()
+    # newSLL.add_node_at(1, 4)
+    # logger.info(newSLL.get_size())
+    # newSLL.list_all_nodes()
 
-    newDLL.add_node_at(1, 3)
-    logger.info(newDLL.get_size())
-    newDLL.list_all_nodes()
+    # newSLL.add_node_at(1, 3)
+    # logger.info(newSLL.get_size())
+    # newSLL.list_all_nodes()
 
-    newDLL.add_first(2)
-    logger.info(newDLL.get_size())
-    newDLL.list_all_nodes()
+    # newSLL.remove_node(6)
+    # logger.info(newSLL.get_size())
+    # newSLL.list_all_nodes()
 
-    newDLL.remove_node(6)
-    logger.info(newDLL.get_size())
-    newDLL.list_all_nodes()
+    # newSLL.remove_node(555)
+    # logger.info(newSLL.get_size())
+    # newSLL.list_all_nodes()
 
-    newDLL.remove_node(555)
-    logger.info(newDLL.get_size())
-    newDLL.list_all_nodes()
+    # newSLL.remove_node_at(7)
+    # logger.info(newSLL.get_size())
+    # newSLL.list_all_nodes()
 
-    newDLL.remove_node_at(7)
-    logger.info(newDLL.get_size())
-    newDLL.list_all_nodes()
+    # newSLL.remove_first()
+    # logger.info(newSLL.get_size())
+    # newSLL.list_all_nodes()
 
-    newDLL.remove_first()
-    logger.info(newDLL.get_size())
-    newDLL.list_all_nodes()
-
-    newDLL.remove_last()
-    logger.info(newDLL.get_size())
-    newDLL.list_all_nodes()
+    # newSLL.remove_last()
+    # logger.info(newSLL.get_size())
+    # newSLL.list_all_nodes()
