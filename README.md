@@ -8,9 +8,9 @@
 ## Data Structures
 - [x] Static Arrays
 - [x] Dynamic Arrays
-- [ ] Singly Linked Lists
-- [ ] Doubly Linked Lists
-- [ ] Stacks
+- [x] Singly Linked Lists
+- [x] Doubly Linked Lists
+- [x] Stacks
 - [ ] Queues
 - [ ] Priority Queues
   - [ ] Heaps
