@@ -1,4 +1,4 @@
-# Algorithms and Data Structures in Python
+# Algorithms and Data Structures
 
 ## Objectives
 - Learn the essential datastructures and algorithms
