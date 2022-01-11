@@ -11,7 +11,7 @@
 - [x] Singly Linked Lists
 - [x] Doubly Linked Lists
 - [x] Stacks
-- [ ] Queues
+- [x] Queues
 - [ ] Priority Queues
   - [ ] Heaps
 - [ ] Union Find
