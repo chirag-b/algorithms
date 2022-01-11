@@ -107,6 +107,7 @@ class SinglyLinkedList:
         # Running Time: O(n)
         if self.is_empty():
             logger.info('The list is empty!!')
+            return None
         else:
             trav = self.head
             for position in range(self.size):
@@ -218,6 +219,7 @@ class SinglyLinkedList:
         # Running Time: O(1)
         if self.is_empty():
             logger.info('The list is empty')
+            return None
         else:
             return self.head.value
 
