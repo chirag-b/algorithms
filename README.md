@@ -12,6 +12,6 @@
 - [x] Doubly Linked Lists
 - [x] Stacks
 - [x] Queues
-- [ ] Priority Queues
-  - [ ] Heaps
+- [x] Priority Queues
+  - [x] Heaps
 - [ ] Union Find
