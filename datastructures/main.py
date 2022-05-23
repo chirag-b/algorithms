@@ -46,10 +46,12 @@ if __name__ == "__main__":
     l = [7, 6, 5, 4, 3, 2, 1]
     pq.heapify(l)
     logger.info(pq.size())
+    logger.info("Heapified below")
     pq.printHeap()
-    logger.info(pq.poll())
-    pq.printHeap()
-    pq.add(0)
-    logger.info(pq.peek())
-    pq.printHeap()
+    polled_items = []
+
+    for i in range(pq.size()):
+        polled_items.append(pq.poll())
+
+    logger.info(f"Polled Items: {polled_items}")
 
