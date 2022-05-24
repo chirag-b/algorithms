@@ -4,6 +4,7 @@ import sys
 from stacks.stack import Stack
 from queues.queue import Queue
 from priority_queues.priority_queue import PriorityQueue
+from union_find.union_find import UnionFind
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logger = logging.getLogger()
@@ -42,16 +43,28 @@ if __name__ == "__main__":
     # my_queue.dequeue()
     # my_queue.show_queue()
     
-    pq = PriorityQueue()
-    l = [7, 6, 5, 4, 3, 2, 1]
-    pq.heapify(l)
-    logger.info(pq.size())
-    logger.info("Heapified below")
-    pq.printHeap()
-    polled_items = []
+    # pq = PriorityQueue()
+    # l = [7, 6, 5, 4, 3, 2, 1]
+    # pq.heapify(l)
+    # logger.info(pq.size())
+    # logger.info("Heapified below")
+    # pq.printHeap()
+    # polled_items = []
 
-    for i in range(pq.size()):
-        polled_items.append(pq.poll())
+    # for i in range(pq.size()):
+    #     polled_items.append(pq.poll())
 
-    logger.info(f"Polled Items: {polled_items}")
+    # logger.info(f"Polled Items: {polled_items}")
 
+    uf = UnionFind(10)
+    logger.info(uf.id)
+    # logger.info(uf.find(2))
+    uf.union(2, 3)
+    logger.info(uf.find(3))
+    logger.info(uf.set_size)
+    uf.union(6, 2)
+    logger.info(uf.find(6))
+    logger.info(uf.set_size)
+    logger.info(uf.num_sets)
+    logger.info(uf.connected(2, 3))
+    logger.info(uf.id)
