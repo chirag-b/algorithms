@@ -14,4 +14,4 @@
 - [x] Queues
 - [x] Priority Queues
   - [x] Heaps
-- [ ] Union Find
+- [x] Union Find
