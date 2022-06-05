@@ -34,7 +34,7 @@ class BinarySearchTree():
         self.root = None
 
 
-    def insert_node(self, value, root):
+    def insert(self, root, value):
         # Tree is empty/has no nodes 
         if self.root == None:
             logger.info("Tree was empty.")
@@ -48,18 +48,23 @@ class BinarySearchTree():
                 return
             elif value < root.value:
                 if root.leftChild != None:
-                    self.insert_node(root.leftChild, value)
+                    self.insert(root.leftChild, value)
                 else:
                     root.leftChild = Node(None, None, root, value)
                     logger.info(f"Node {value} inserted!")
             else:
                 if root.rightChild != None:
-                    self.insert_node(root.rightChild, value)
+                    self.insert(root.rightChild, value)
                 else:
                     root.rightChild = Node(None, None, root, value)
                     logger.info(f"Node {value} inserted!")
-        
-        return
+
+        return 
+
+
+    def insert_node(self, value):
+        self.insert(value, self.root)
+        return 
 
 
     def find_node(self, value, node):
@@ -92,16 +97,39 @@ class BinarySearchTree():
         elif node.leftChild != None and \
             node.rightChild == None:
             node.parent.leftChild = node.leftChild
+            del(node)
 
         # Case 3: Has rightsubtree
         elif node.leftChild == None and \
             node.rightChild != None:
             node.parent.rightChild = node.rightChild
+            del(node)
 
         # Case 4: Has both left and right subtrees
         # Successor - smallest node in right subtree 
         # OR largest node in left subtree
-        
+        else:
+            smallest_node = get_smallest_node(node.rightChild)
+            node.value = smallest_node.value
+            self.remove(smallest_node)
+
+        return True
+
+
+    def get_smallest_node(self, node):
+        # Return the smallest value in the
+        # right subtree.
+        while (node.rightChild != None):
+                node = node.rightChild
+        return node
+            
+
+    def get_largest_node(self, node):
+        # Return the largest value in the
+        # left subtree.
+        while (node.leftChild != None):
+                node = node.leftChild
+        return node    
 
 
     def remove_node(self, value):
@@ -112,20 +140,40 @@ class BinarySearchTree():
         # Tree is not empty
         else:
             node = self.find_node(value)
-            self.remove(node)
+            if self.remove(node):
+                logger.info(f"Node {value} removed!")
         
         return
 
 
     def preorder_traversal(self):
-        pass
+        # start with root
+        # print
+        # visit left
+        # visit right
+
+        # The tree is empty/has no nodes
+        if self.root == None:
+            logger.info("The tree is empty!")
+        
+        # The tree is not empty
+        else:
+            pass
 
 
     def inorder_traversal(self):
+        # start with root
+        # visit left
+        # print
+        # visit right
         pass
 
 
     def postorder_traversal(self):
+        # start with root
+        # visit left
+        # visit right
+        # print
         pass
 
 
