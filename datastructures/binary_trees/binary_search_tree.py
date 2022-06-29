@@ -62,8 +62,13 @@ class BinarySearchTree():
                 else:
                     root.rightChild = Node(None, None, value)
                     logger.info(f"Node {value} inserted!")
-        
-        return
+
+        return 
+
+
+    def insert_node(self, value):
+        self.insert(value, self.root)
+        return 
 
 
     def find_node(self, value, node=None):
