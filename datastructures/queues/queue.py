@@ -31,7 +31,8 @@ class Queue(SinglyLinkedList):
 
     
     def dequeue(self):
-        super().remove_first()
+        node = super().remove_first()
+        return node
 
     
     def search(self, value):
@@ -48,6 +49,7 @@ class Queue(SinglyLinkedList):
             logger.info(f"Value at the front of the queue: {value}")
         else:
             logger.info(f"Queue is empty!")
+
 
     def show_queue(self):
         super().list_all_nodes()

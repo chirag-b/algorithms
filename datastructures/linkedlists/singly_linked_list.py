@@ -198,7 +198,7 @@ class SinglyLinkedList:
             self.head = self.head.next
             trav.next = None
             self.size -= 1
-            del trav    
+            return trav    
 
 
     def remove_last(self):
@@ -213,6 +213,7 @@ class SinglyLinkedList:
             trav.next = None
             self.tail = trav
             self.size -= 1
+            return trav
 
 
     def get_head_value(self):
@@ -230,6 +231,23 @@ class SinglyLinkedList:
             logger.info('The list is empty')
         else:
             return self.tail.value
+
+
+    def get_head(self):
+        # Running Time: O(1)
+        if self.is_empty():
+            logger.info('The list is empty')
+            return None
+        else:
+            return self.head
+
+
+    def get_tail(self):
+        # Running Time: O(1)
+        if self.is_empty():
+            logger.info('The list is empty')
+        else:
+            return self.tail
 
 
 if __name__ == '__main__':

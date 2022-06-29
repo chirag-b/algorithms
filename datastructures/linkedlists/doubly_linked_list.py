@@ -237,6 +237,22 @@ class DoublyLinkedList:
             return self.tail.value
 
 
+    def get_head(self):
+        # Running Time: O(1)
+        if self.is_empty():
+            logger.info('The list is empty')
+        else:
+            return self.head
+
+
+    def get_tail(self):
+        # Running Time: O(1)
+        if self.is_empty():
+            logger.info('The list is empty')
+        else:
+            return self.tail
+
+
 # if __name__ == '__main__':
 #     # import pdb; pdb.set_trace()
 #     newDLL = DoublyLinkedList()

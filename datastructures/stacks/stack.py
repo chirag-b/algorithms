@@ -54,6 +54,11 @@ class Stack(DoublyLinkedList):
         # Running Time: O(1)
         self.get_head_value()
 
+
+    def top(self):
+        # Running Time: O(1)
+        self.get_head()
+
     
     def show_stack(self):
         # Running Time: O(1)
