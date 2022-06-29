@@ -35,7 +35,7 @@ class BinarySearchTree():
         self.root = None
 
 
-    def insert_node(self, value, root=None):
+    def insert(self, value, root=None):
         # Tree is empty/has no nodes 
         if self.root == None:
             self.root = Node(None, None, value)
@@ -52,17 +52,16 @@ class BinarySearchTree():
                 return
             elif value < root.value:
                 if root.leftChild != None:
-                    self.insert_node(value, root.leftChild)
+                    self.insert(value, root.leftChild)
                 else:
                     root.leftChild = Node(None, None, value)
                     logger.info(f"Node {value} inserted!")
             else:
                 if root.rightChild != None:
-                    self.insert_node(value, root.rightChild)
+                    self.insert(value, root.rightChild)
                 else:
                     root.rightChild = Node(None, None, value)
                     logger.info(f"Node {value} inserted!")
-
         return 
 
 
@@ -83,7 +82,7 @@ class BinarySearchTree():
                 node = self.root
 
             if value == node.value:
-                logger.info(f"Found {value}!!!")
+                logger.info(f"Found {value}.")
                 return True
             elif value < node.value and node.leftChild != None:
                 return self.find_node(value, node.leftChild)
@@ -99,8 +98,26 @@ class BinarySearchTree():
         if node.value == value:
             if node.leftChild == None and \
                 node.rightChild == None:
-                print(f"Deleting {node.value}")
-                return node
+
+                # get parent
+                parent = None
+                temp = self.root
+                while True:
+                    parent = temp
+                    if node.value < temp.value:
+                        temp = temp.leftChild
+                    elif node.value > temp.value:
+                        temp = temp.rightChild
+                    else:
+                        temp = node
+                        break
+
+                if parent.leftChild == node:
+                    parent.leftChild = None
+                else:
+                    parent.rightChild = None
+
+                return temp
 
             elif node.leftChild and node.rightChild == None:
                 # Go as far right as possible
@@ -110,7 +127,7 @@ class BinarySearchTree():
                 node.value = right.value
 
                 # Recurse with right most node.
-                self.remove(right, right.value)
+                return self.remove(right, right.value)
             else:
                 # Go as far left as possible
                 left = self.find_min(node.rightChild)
@@ -119,40 +136,12 @@ class BinarySearchTree():
                 node.value = left.value
 
                 # Recurse with left most node.
-                self.remove(left, left.value)                
+                return self.remove(left, left.value)                
 
         elif value < node.value:
-            self.remove(node.leftChild, value)
+            return self.remove(node.leftChild, value)
         else:
-            self.remove(node.rightChild, value)
-
-        # # Case 1: Leaf node
-        # if node.leftChild == None and \
-        #     node.rightChild == None:
-        #     print(f"Deleting {node.value}")
-        #     del node
-        #     return
-
-        # # Case 2: Non-leaf node
-        # else:
-        #     if node.leftChild and node.rightChild == None:
-        #         # Go as far right as possible
-        #         right = self.dig_right(node.leftChild)
-
-        #         # Copy the right most node's value into the current node's value
-        #         node.value = right.value
-
-        #         # Recurse with right most node.
-        #         self.remove(right)
-        #     else:
-        #         # Go as far left as possible
-        #         left = self.dig_left(node.rightChild)
-
-        #         # Copy the left most node's value into the current node's value
-        #         node.value = left.value
-
-        #         # Recurse with left most node.
-        #         self.remove(left)
+            return self.remove(node.rightChild, value)
 
 
     def remove_node(self, value):
@@ -164,14 +153,14 @@ class BinarySearchTree():
         else:
             found = self.find_node(value)
             if found:
-                node = self.remove(self.root, value)
-                logger.info(f"Ref count {node.value}: {sys.gettotalrefcount(node)}")
+                del_node = self.remove(self.root, value)
                 return True
             else:
                 logger.info("Node not found!")
                 return False
         
         return
+
 
     def find_max(self, node):
         while node.leftChild:
