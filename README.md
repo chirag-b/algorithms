@@ -15,3 +15,4 @@
 - [x] Priority Queues
   - [x] Heaps
 - [x] Union Find
+- [x] Binary Search Tree
