@@ -205,7 +205,7 @@ class DoublyLinkedList:
             trav = self.head
             self.head = self.head.next
             self.size -= 1
-            del trav    
+            return trav
 
 
     def remove_last(self):

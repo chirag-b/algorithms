@@ -82,7 +82,7 @@ class BinarySearchTree():
                 node = self.root
 
             if value == node.value:
-                logger.info(f"Found {value}.")
+                logger.info(f"Found {value}")
                 return True
             elif value < node.value and node.leftChild != None:
                 return self.find_node(value, node.leftChild)
@@ -154,6 +154,7 @@ class BinarySearchTree():
             found = self.find_node(value)
             if found:
                 del_node = self.remove(self.root, value)
+                logger.info(f"Deleted {del_node.value}")
                 return True
             else:
                 logger.info("Node not found!")
@@ -162,13 +163,13 @@ class BinarySearchTree():
         return
 
 
-    def find_max(self, node):
+    def find_min(self, node):
         while node.leftChild:
             node = node.leftChild        
         return node
 
 
-    def find_min(self, node):
+    def find_max(self, node):
         while node.rightChild:
             node = node.rightChild
         return node
@@ -176,19 +177,19 @@ class BinarySearchTree():
 
     def preorder_traversal(self):
         # root -> left -> right
-        stack = Stack()
-        stack.push(self.root)
+        s = Stack()
+        s.push(self.root)
         visited = []
 
-        while not stack.is_empty():
-            node = stack.pop()
+        while not s.is_empty():
+            node = s.pop().value
             visited.append(node.value)
 
             if node.rightChild:
-                stack.push(node.rightChild)
+                s.push(node.rightChild)
 
             if node.leftChild:
-                stack.push(node.leftChild)
+                s.push(node.leftChild)
 
         logger.info(f"Preorder: {visited}")
         return       
@@ -202,17 +203,17 @@ class BinarySearchTree():
         left = False
 
         while not s.is_empty():
-            while (s.top().leftChild and not left):
-                s.push(s.top().leftChild)
+            while (s.top().value.leftChild and not left):
+                s.push(s.top().value.leftChild)
             
-            if s.top().rightChild:
-                node = s.pop()
+            if s.top().value.rightChild:
+                node = s.pop().value
                 visited.append(node.value)
                 s.push(node.rightChild)
                 left = False
             else:
                 # leaf
-                visited.append(s.pop().value)
+                visited.append(s.pop().value.value)
                 left = True
         
         logger.info(f"Inorder: {visited}")
@@ -227,20 +228,31 @@ class BinarySearchTree():
         visited = []
 
         while not s.is_empty():
-
-            if not s.top().rightChild or s.top.rightChild == visited_node:
-                visited_node = s.pop()
-                visited.append(visited_node.value)
+            # import pdb; pdb.set_trace()
+            if not s.top().value.rightChild and not s.top().value.leftChild:
+                visited_node = s.pop().value.value
+                visited.append(visited_node)
             
+            elif s.top().value.rightChild != None and \
+                s.top().value.rightChild.value == visited_node:
+                    visited_node = s.pop().value.value
+                    visited.append(visited_node)
+            
+            elif s.top().value.leftChild and \
+                s.top().value.leftChild.value == visited_node:
+                    visited_node = s.pop().value.value
+                    visited.append(visited_node)
+
             else:
-                if s.top().rightChild:
-                    s.push(s.top().rightChild)
+                top = s.top().value
+                if top.rightChild:
+                    s.push(top.rightChild)
+                
+                if top.leftChild:
+                    s.push(top.leftChild)
 
-                if s.top().leftChild:
-                    s.push(s.top().leftChild)
-
-            logger.info(f"Postorder: {visited}")
-            return
+        logger.info(f"Postorder: {visited}")
+        return
 
 
     def level_order_traversal(self):
